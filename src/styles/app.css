@@ -1,0 +1,378 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   NAVBAR - Matches original mockup
+   ============================================ */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-secondary);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-default);
+  padding: 0 2rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.light-theme .navbar {
+  background: var(--card-bg);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+  background: linear-gradient(135deg, var(--biblio) 0%, var(--manu) 50%, var(--planner) 100%);
+  border-radius: 0.4375rem;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.iconBtn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.iconBtn:hover {
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+}
+
+.iconBtn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Theme toggle sun/moon animation */
+.themeToggle .iconSun,
+.themeToggle .iconMoon {
+  position: absolute;
+  transition: opacity 0.2s, transform 0.3s;
+}
+
+.themeToggle .iconSun {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.themeToggle .iconMoon {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+.dark-theme .themeToggle .iconSun {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.dark-theme .themeToggle .iconMoon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* Avatar button */
+.avatarBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, var(--biblio) 0%, var(--manu) 100%);
+  color: var(--text-on-accent);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* ============================================
+   PAGE SHELL
+   ============================================ */
+.pageShell {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.pageShell--full {
+  height: 100vh;
+}
+
+/* ============================================
+   PLATFORM LAYOUT (AppLayout pattern)
+   ============================================ */
+.platform-wrapper {
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.platform-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ============================================
+   LEGACY STYLES (for other pages)
+   ============================================ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.brandMark {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.4rem;
+  background: linear-gradient(135deg, var(--biblio) 0%, var(--manu) 55%, var(--planner) 100%);
+}
+
+.topbarActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconButton {
+  border: 1px solid var(--border-default);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: var(--bg-hover-subtle);
+  color: var(--text-primary);
+}
+
+.segmented {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+}
+
+.segmented button {
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius-md) - 0.25rem);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.segmented button[data-active="true"] {
+  background: var(--bg-hover-subtle);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   HERO SECTION - Beautiful Integration
+   ============================================ */
+.hero-section-wrapper {
+  position: relative;
+}
+
+/* Radial Grid Background — fades out at bottom for seamless transition */
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+/* Organic Blob Container */
+.hero-blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Option A: Mask fade — blobs dissolve to transparent at bottom */
+.hero-blobs-mask {
+  mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+}
+
+/* Option B: Blob overflow — blobs bleed past hero into features */
+.hero-blobs-overflow {
+  overflow: visible;
+  bottom: -200px;
+  height: calc(100% + 200px);
+}
+
+.blob {
+  position: absolute;
+  opacity: 0.6;
+  filter: blur(100px);
+  animation: blob-drift 18s ease-in-out infinite;
+}
+
+/* Blue (Bibliography) — left of center */
+.blob-1 {
+  top: 8%;
+  left: 22%;
+  width: 35vw;
+  height: 45%;
+  background-color: var(--blue-5);
+  border-radius: 50% 70% 60% 40% / 60% 40% 70% 50%;
+}
+
+/* Green/Jade (Manuscripts) — right of center */
+.blob-2 {
+  top: -8%;
+  right: 22%;
+  width: 35vw;
+  height: 45%;
+  background-color: var(--jade-5);
+  border-radius: 70% 40% 50% 60% / 40% 60% 50% 70%;
+  animation-delay: -6s;
+}
+
+/* Violet/Iris (Discover) — bottom-center, wider + flatter */
+.blob-3 {
+  bottom: 5%;
+  left: 50%;
+  margin-left: -17.5vw;
+  width: 35vw;
+  height: 40%;
+  background-color: var(--iris-6);
+  border-radius: 40% 60% 50% 70% / 55% 45% 60% 40%;
+  animation-delay: -12s;
+}
+
+@keyframes blob-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(25px, -35px) scale(1.05);
+  }
+  66% {
+    transform: translate(-15px, 20px) scale(0.95);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.hero-gradient-text {
+  background: linear-gradient(to right, var(--manu), var(--biblio), var(--discover));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  padding-bottom: 0.1em;
+  /* Prevent clipping of descenders */
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-merriweather {
+  font-family: 'Merriweather', serif;
+}
+
+.font-lora {
+  font-family: 'Lora', serif;
+}
+
+.font-pt-serif {
+  font-family: 'PT Serif', serif;
+}
+
+.font-spectral {
+  font-family: 'Spectral', serif;
+}
+
+.font-inter-bold {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+}

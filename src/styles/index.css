@@ -1,0 +1,707 @@
+@import "tailwindcss";
+@import "./radix-colors.css";
+@import "./shared-tokens.css";
+@import "./app.css";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark-theme *));
+
+@theme {
+  /* Typography - Inter as global default */
+  --default-font-family: 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', Times, serif;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* Core surfaces - map to semantic tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* Primary action - maps to biblio (module accent) */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* Secondary/muted - map to semantic tokens */
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  /* Destructive/error */
+  --color-destructive: var(--destructive);
+
+  /* Borders and inputs */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Module colors - Bibliography (Blue) */
+  --color-biblio: var(--biblio);
+  --color-biblio-strong: var(--biblio-strong);
+  --color-biblio-tint: var(--biblio-tint);
+  --color-biblio-light: var(--biblio-light);
+
+  /* Module colors - Manuscripts (Jade) */
+  --color-manu: var(--manu);
+  --color-manu-strong: var(--manu-strong);
+  --color-manu-tint: var(--manu-tint);
+  --color-manu-light: var(--manu-light);
+
+  /* Module colors - Discover (Violet) */
+  --color-discover: var(--discover);
+  --color-discover-strong: var(--discover-strong);
+  --color-discover-tint: var(--discover-tint);
+  --color-discover-light: var(--discover-light);
+
+  /* Module colors - Planner (Neutral) */
+  --color-planner: var(--planner);
+
+  /* Tag badge colors */
+  --color-tag-cyan-bg: var(--tag-cyan-bg);
+  --color-tag-cyan-text: var(--tag-cyan-text);
+  --color-tag-violet-bg: var(--tag-violet-bg);
+  --color-tag-violet-text: var(--tag-violet-text);
+  --color-tag-emerald-bg: var(--tag-emerald-bg);
+  --color-tag-emerald-text: var(--tag-emerald-text);
+  --color-tag-amber-bg: var(--tag-amber-bg);
+  --color-tag-amber-text: var(--tag-amber-text);
+
+  /* SVG illustration fills */
+  --color-mauve-a3: var(--mauve-a3);
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear
+;
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+    }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+    }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+    }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+    }
+  }
+  --animate-shiny-text: shiny-text 8s infinite;
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }}
+
+/* ===========================================
+   SHADCN TOKEN BRIDGE
+
+   Maps shadcn's semantic tokens to our design system.
+   These tokens reference shared-tokens.css values.
+   =========================================== */
+
+:root {
+  --radius: 0.625rem;
+
+  /* Core backgrounds - use semantic tokens */
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+
+  /* Card surfaces */
+  --card: var(--bg-secondary);
+  --card-foreground: var(--text-primary);
+
+  /* Popover/dropdown surfaces */
+  --popover: var(--bg-secondary);
+  --popover-foreground: var(--text-primary);
+
+  /* Primary action - USE BIBLIO for module-specific accent */
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-foreground);
+
+  /* Secondary/subtle actions */
+  --secondary: var(--bg-tertiary);
+  --secondary-foreground: var(--text-primary);
+
+  /* Muted/disabled states */
+  --muted: var(--bg-hover);
+  --muted-foreground: var(--text-muted);
+
+  /* Accent (hover states) */
+  --accent: var(--bg-hover);
+  --accent-foreground: var(--text-primary);
+
+  /* Destructive/error */
+  --destructive: var(--error);
+
+  /* Borders and inputs */
+  --border: var(--border-default);
+  --input: var(--border-default);
+  --ring: var(--accent-border);
+
+  /* Sidebar */
+  --sidebar: var(--bg-secondary);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--accent-foreground);
+  --sidebar-accent: var(--bg-hover);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-default);
+  --sidebar-ring: var(--accent-border);
+}
+
+.dark-theme {
+  /* Dark mode uses same semantic tokens - they auto-switch */
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+
+  --card: var(--bg-secondary);
+  --card-foreground: var(--text-primary);
+
+  --popover: var(--bg-secondary);
+  --popover-foreground: var(--text-primary);
+
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-foreground);
+
+  --secondary: var(--bg-tertiary);
+  --secondary-foreground: var(--text-primary);
+
+  --muted: var(--bg-tertiary);
+  --muted-foreground: var(--text-muted);
+
+  --accent: var(--bg-tertiary);
+  --accent-foreground: var(--text-primary);
+
+  --destructive: var(--error);
+
+  --border: var(--border-default);
+  --input: var(--border-subtle);
+  --ring: var(--accent-border);
+
+  --sidebar: var(--bg-secondary);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--accent);
+  --sidebar-primary-foreground: var(--accent-foreground);
+  --sidebar-accent: var(--bg-tertiary);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-default);
+  --sidebar-ring: var(--accent-border);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ===========================================
+   CENTER-EXPANDING UNDERLINE FOR LINE VARIANT TABS
+   Expands from center outward on hover/active
+   =========================================== */
+[data-slot="tabs-list"][data-variant="line"] [data-slot="tabs-trigger"]::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: var(--text-primary);
+  transition: left var(--transition-slow), right var(--transition-slow),
+              background var(--transition-slow), opacity var(--transition-slow);
+  opacity: 0;
+}
+
+[data-slot="tabs-list"][data-variant="line"] [data-slot="tabs-trigger"]:hover::after {
+  left: 0;
+  right: 0;
+  opacity: 0.5;
+}
+
+[data-slot="tabs-list"][data-variant="line"] [data-slot="tabs-trigger"][data-state="active"]::after {
+  left: 0;
+  right: 0;
+  opacity: 1;
+  background: var(--accent, var(--biblio));
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ===========================================
+   BIBLIOGRAPHY MOCKUP ANIMATIONS
+   =========================================== */
+@keyframes pdf-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) rotate(-5deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(5px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes fade-in-row {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes tag-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pdf-drop {
+  opacity: 0;
+  animation: pdf-drop 0.6s ease-out forwards;
+}
+
+.animate-fade-in-row {
+  opacity: 0;
+  animation: fade-in-row 0.4s ease-out forwards;
+}
+
+.animate-tag-appear {
+  opacity: 0;
+  animation: tag-appear 0.3s ease-out forwards;
+}
+
+/* Text highlight animation */
+@keyframes text-highlight {
+  0% { background-size: 0% 100%; }
+  100% { background-size: 100% 100%; }
+}
+
+/* Typing cursor blink */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Popup fade in */
+@keyframes popup-in {
+  from { opacity: 0; transform: translateY(4px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Note card slide in */
+@keyframes note-slide-in {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-text-highlight {
+  background: linear-gradient(to right, var(--biblio-tint) 50%, transparent 50%);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  animation: text-highlight 0.5s ease-out forwards;
+}
+
+/* Yellow highlight animation */
+@keyframes text-highlight-yellow {
+  0% { background-color: transparent; }
+  100% { background-color: var(--amber-4); }
+}
+
+.animate-text-highlight-yellow {
+  animation: text-highlight-yellow 0.6s ease-out forwards;
+}
+
+.animate-cursor-blink {
+  animation: cursor-blink 0.8s infinite;
+}
+
+.animate-popup-in {
+  opacity: 0;
+  animation: popup-in 0.3s ease-out forwards;
+}
+
+.animate-note-slide-in {
+  opacity: 0;
+  animation: note-slide-in 0.4s ease-out forwards;
+}
+
+/* Color picker scale-in */
+@keyframes picker-appear {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-picker-appear {
+  opacity: 0;
+  animation: picker-appear 0.3s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+/* Margin note slide-in from right */
+@keyframes margin-note-in {
+  from { opacity: 0; transform: translate(12px, -50%); }
+  to { opacity: 1; transform: translate(0, -50%); }
+}
+
+/* Cursor movement + highlight swipe (Bibliography mockups) */
+@keyframes cursor-swoop {
+  0% { transform: translate(0, 0) scale(0.96); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate(150px, 0) scale(1); opacity: 1; }
+}
+
+@keyframes highlight-swipe {
+  0% { transform: translate(0, 0); width: 22px; opacity: 0.7; }
+  100% { transform: translate(180px, 0); width: 32px; opacity: 0; }
+}
+
+.animate-cursor-swoop {
+  animation: cursor-swoop 0.7s ease-out forwards;
+}
+
+.animate-highlight-swipe {
+  animation: highlight-swipe 0.55s ease-out forwards;
+}
+
+.animate-margin-note-in {
+  opacity: 0;
+  animation: margin-note-in 0.4s ease-out forwards;
+}
+
+/* ===========================================
+   MANUSCRIPTS MOCKUP ANIMATIONS
+   =========================================== */
+
+/* Remote cursor slide-in from bottom */
+@keyframes cursor-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-cursor-slide-in {
+  opacity: 0;
+  animation: cursor-slide-in 0.4s ease-out forwards;
+}
+
+/* Comment bubble pop-in */
+@keyframes comment-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-comment-pop-in {
+  opacity: 0;
+  animation: comment-pop-in 0.3s ease-out forwards;
+}
+
+/* Avatar slide-in from left */
+@keyframes avatar-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-avatar-slide-in {
+  opacity: 0;
+  animation: avatar-slide-in 0.3s ease-out forwards;
+}
+
+/* Tab slide-in from right */
+@keyframes tab-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-tab-slide-in {
+  opacity: 0;
+  animation: tab-slide-in 0.35s ease-out forwards;
+}
+
+/* Highlight grow (expands left to right like text selection) */
+@keyframes highlight-grow {
+  0% {
+    right: 100%;
+  }
+  100% {
+    right: -2px;
+  }
+}
+
+.animate-highlight-grow {
+  animation: highlight-grow 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* PDF compile rotation + overlay */
+@keyframes pdf-compile-rotate {
+  0% { transform: rotate(0deg); }
+  30% { transform: rotate(2deg); }
+  70% { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes compile-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 0.7; }
+}
+
+@keyframes compile-spinner {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-pdf-compile-rotate {
+  animation: pdf-compile-rotate 1s ease-in-out forwards;
+}
+
+.animate-compile-overlay-in {
+  animation: compile-overlay-in 0.3s ease-out forwards;
+}
+
+.animate-compile-spinner {
+  animation: compile-spinner 1s linear infinite;
+}
+
+/* ===========================================
+   INTEGRATION MOCKUP ANIMATIONS
+   =========================================== */
+
+/* Sidebar slide-in */
+@keyframes sidebar-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-sidebar-slide-in {
+  animation: sidebar-slide-in 0.4s ease-out forwards;
+}
+
+/* Icon pulse */
+@keyframes icon-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.animate-icon-pulse {
+  animation: icon-pulse 0.3s ease-in-out 2;
+}
+
+/* Autocomplete fade-in */
+@keyframes autocomplete-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-autocomplete-in {
+  opacity: 0;
+  animation: autocomplete-in 0.2s ease-out forwards;
+}
+
+/* Dot color transition (red to green) with pulse */
+@keyframes dot-to-green {
+  0% {
+    background: var(--error);
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--success);
+  }
+  30% {
+    background: var(--success);
+    transform: scale(1.8);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 40%, transparent);
+  }
+  60% {
+    transform: scale(1.4);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--success) 20%, transparent);
+  }
+  100% {
+    background: var(--success);
+    transform: scale(1);
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.animate-dot-to-green {
+  animation: dot-to-green 0.6s ease-out forwards;
+}
+
+/* Folder pop-in (after sidebar slides in) */
+@keyframes folder-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-4px);
+  }
+  60% {
+    transform: scale(1.02) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-folder-pop-in {
+  animation: folder-pop-in 0.35s ease-out forwards;
+}
+
+/* Paper row fade-in (staggered) */
+@keyframes paper-fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-paper-fade-in {
+  opacity: 0;
+  animation: paper-fade-in 0.25s ease-out forwards;
+}
+
+/* ===========================================
+   HERO GRADIENT ORBS (animated blobs)
+   =========================================== */
+@keyframes hero-drift {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(30px, -50px) scale(1.1); }
+  66%  { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-hero-drift {
+  animation: hero-drift 7s ease-in-out infinite;
+}
+
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+/* Hero gradient text — via at 35% gives purple more room,
+   purple boosted with iris chroma via color-mix in oklch */
+.hero-gradient-text {
+  background-image: linear-gradient(
+    to right,
+    var(--green-11),
+    var(--cyan-9) 35%,
+    color-mix(in oklch, var(--purple-9) 60%, var(--iris-9))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
